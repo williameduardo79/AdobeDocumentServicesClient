@@ -117,13 +117,17 @@ namespace AdobeDocumentServicesClient.Services
            
             // Initialize HttpClient
             var client = _httpClientFactory.CreateClient();
-          
+            MediaTypeHeaderValue contentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
+           
+                ;
             using var content = new MultipartFormDataContent();
+            content.Headers.ContentType = contentType;
             var template = wordTemplate;//Stream of the template 
             var fileContent = new StreamContent(template);
             content.Add(fileContent, "file", templateName);
 
-            var fileResponse = await client.PostAsync(uploadUri, content);
+            var fileResponse = await client.PutAsync(uploadUri, content);
             fileResponse.EnsureSuccessStatusCode();
         }
         public async Task<MergeDocumentResponse> RequestPDFDocumentAsync
