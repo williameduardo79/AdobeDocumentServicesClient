@@ -4,9 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+			<PackageLicenseExpression>MIT</PackageLicenseExpression>
+			<PackageReadmeFile>README.md</PackageReadmeFile>
+			<Version>1.0.1</Version>
   </PropertyGroup>
-
+	
   <ItemGroup>
+			<None Include="..\README.md" Pack="true" PackagePath="README.md" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
