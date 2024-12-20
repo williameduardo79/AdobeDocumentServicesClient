@@ -33,10 +33,10 @@ Add the library to your project via a NuGet package (if applicable):
 To use the AdobeClientConnector service, ensure the following configurations are present in your appsettings.json:
 
 `
-  "AdobeCredentials": {  
-    "ClientId": "your-client-id",  
-    "ClientSecret": "your-client-secret",  
-    "Region": "UnitedStates" // Options: UnitedStates, Europe, Custom  
+  "AdobeCredentials": {    
+    "ClientId": "your-client-id",    
+    "ClientSecret": "your-client-secret",    
+    "Region": "UnitedStates" // Options: UnitedStates, Europe, Custom    
   }
 `
 
@@ -46,13 +46,15 @@ To use the AdobeClientConnector service, ensure the following configurations are
 
 The library integrates with .NET dependency injection. Register it in your Startup.cs or Program.cs:
 
-`services.Configure<AdobeCredentials>(configuration.GetSection("AdobeCredentials"));  
-services.AddHttpClient();  
-services.AddTransient<IAdobeClientConnector, AdobeClientConnector>();  `
+`services.Configure<AdobeCredentials>(configuration.GetSection("AdobeCredentials"));     
+services.AddHttpClient();    
+services.AddTransient<IAdobeClientConnector, AdobeClientConnector>();    `
 
 ### Override Region if not set up in Config:
 
-`adobeClientConnector.SetAdobeURLRegion(RegionOptions.UnitedStates);`
+`
+adobeClientConnector.SetAdobeURLRegion(RegionOptions.UnitedStates);
+`
 
 ### Override Adobe's API URL with custom URL:
 
@@ -63,11 +65,11 @@ services.AddTransient<IAdobeClientConnector, AdobeClientConnector>();  `
 To merge a Word template with JSON data and generate a PDF:
 
 `
-var wordTemplateStream = File.OpenRead("template.docx");  
-var jsonData = JObject.Parse(@"{ 'Name': 'John Doe', 'Age': 30 }");  
-var resultStream = await adobeClientConnector.MergeDocumentAsync(wordTemplateStream, jsonData);  
-using var fileStream = File.Create("output.pdf");  
-await resultStream.CopyToAsync(fileStream);  
+var wordTemplateStream = File.OpenRead("template.docx");     
+var jsonData = JObject.Parse(@"{ 'Name': 'John Doe', 'Age': 30 }");      
+var resultStream = await adobeClientConnector.MergeDocumentAsync(wordTemplateStream, jsonData);    
+using var fileStream = File.Create("output.pdf");    
+await resultStream.CopyToAsync(fileStream);    
 `
 
 ## API Reference
@@ -124,8 +126,8 @@ Exceptions are logged using the provided ILogger instance. Key exception types i
 The library logs requests, responses, and errors using the ILogger interface. Example:
 
 `
-_logger.LogInformation("Request URL: {Url}", uploadUri);  
-_logger.LogError(ex, "An error occurred while merging documents.");  
+_logger.LogInformation("Request URL: {Url}", uploadUri);     
+_logger.LogError(ex, "An error occurred while merging documents.");     
 `
 
 
