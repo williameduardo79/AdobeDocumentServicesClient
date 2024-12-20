@@ -4,6 +4,8 @@ Reference: <https://developer.adobe.com/document-services/docs/overview/document
 Github: <https://github.com/williameduardo79/AdobeDocumentServicesClient>
 
 The AdobeClientConnector library provides an interface for integrating with Adobe Document Services API to perform tasks such as token management, document merging, and file uploads.
+This particular service focuses on the Document merge which takes a word document and a Json file and generates a PDF. 
+The client test project shows this feature in action. You may need to authenticate with Adobe and might need an Adobe account.
 
 ## Features
 
