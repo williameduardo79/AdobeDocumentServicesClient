@@ -57,7 +57,7 @@ namespace AdobeServicesClientTest
                 Assert.Fail("File does not exist");
             FileStream fileStream = File.OpenRead(filename);
             fileStream.Seek(0, SeekOrigin.Begin);
-            TestContactData contactData = new TestContactData("William", "Mendoza", "williameduardo@hotmail.com", "123456789");
+            TestContactData contactData = new TestContactData("William", "Mendoza", "Will@somedomain.com", "123456789");
             string json = JsonConvert.SerializeObject(contactData);
             JObject jObject = JObject.Parse(json);
             var mergeDocumentResponse = await connector.MergeDocumentAsync(fileStream, jObject);
