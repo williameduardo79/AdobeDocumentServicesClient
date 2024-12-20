@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdobeDocumentServicesClient.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace AdobeDocumentServicesClient.Models
     {
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
+        public RegionOptions Region {  get; set; }
     }
 }

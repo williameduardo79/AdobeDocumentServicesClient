@@ -10,6 +10,6 @@ namespace AdobeDocumentServicesClient.Enums
     {
         UnitedStates,
         Europe,
-        Other
+        Custom
     }
 }

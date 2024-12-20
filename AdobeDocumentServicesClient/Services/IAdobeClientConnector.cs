@@ -1,19 +1,19 @@
-﻿using AdobeDocumentServicesClient.Models;
+﻿using AdobeDocumentServicesClient.Enums;
+using AdobeDocumentServicesClient.Models;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdobeDocumentServicesClient.Services
 {
     public interface IAdobeClientConnector
     {
+        Task<CheckStatusResponse> CheckFileStatusAsync(AdobeToken adobeToken, MergeDocumentResponse documentResponse);
+        Task<MergeDocumentResponse> DocumentGenerationAsync(JObject jasonObject, AdobeToken adobeToken, string assetId);
+        Task<Stream> GetFileStreamAsync(string fileUrl);
         Task<AdobeToken> GetTokenAsync();
         Task<AssetResponse> GetUploadPreSignedUriAsync(AdobeToken adobeToken);
-        Task UploadFileAsync(string templateName, Stream wordTemplate, string uploadUri);
-        Task<MergeDocumentResponse> RequestPDFDocumentAsync(JObject jasonObject, AdobeToken adobeToken, AssetResponse assetResponse);
-
+        Task<Stream> MergeDocumentAsync(Stream wordTemplate, JObject jsonObject);
+        string SetAdobeURLRegion(RegionOptions regionOptions);
+        string SetAdobeURLRegion(string overrideUrl);
+        Task UploadDocumentAsync(string uploadUri, Stream wordTemplate);
     }
 }

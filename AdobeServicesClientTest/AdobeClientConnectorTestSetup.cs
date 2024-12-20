@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,15 @@ namespace AdobeServicesClientTest
         private ILogger<AdobeClientConnector> _logger;
         private IOptions<AdobeCredentials> _options;
         private AdobeClientConnector _connector;
-        private AdobeToken _token;
+      
 
         [OneTimeSetUp]
         public void Setup()
         {
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: true)
-                .AddUserSecrets("bd2d53f4-81a8-47d2-bc60-7d07005f8bbf")
-                .Build();
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Don't make it optional
+            .AddUserSecrets<Program>() // This tells the application to load User Secrets.
+            .Build();
 
             var services = new ServiceCollection();
 
@@ -37,6 +38,7 @@ namespace AdobeServicesClientTest
             {
                 builder.AddConsole();
             });
+            AdobeCredentials config = configuration.GetSection("AdobeCredentials").Get<AdobeCredentials>(); ;
             services.Configure<AdobeCredentials>(configuration.GetSection("AdobeCredentials"));
 
             var serviceProvider = services.BuildServiceProvider();
@@ -48,12 +50,10 @@ namespace AdobeServicesClientTest
             _connector = new AdobeClientConnector(_httpClientFactory, _logger, _options);
             _connector.SetAdobeURLRegion(RegionOptions.UnitedStates);
 
-            _token = _connector.GetTokenAsync().GetAwaiter().GetResult();
-
         }
 
         public AdobeClientConnector Connector => _connector;
-        public AdobeToken Token => _token;
+      
     }
 
 }

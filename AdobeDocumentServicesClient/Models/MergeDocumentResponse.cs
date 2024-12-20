@@ -9,9 +9,14 @@ namespace AdobeDocumentServicesClient.Models
 {
     public class MergeDocumentResponse
     {
+        public MergeDocumentResponse(string location, string request)
+        {
+            Location = location;
+            RequestId = request;
+        }
         [JsonProperty("location")]
-        public string Location { get; set; }
+        public string Location { get; init; }
         [JsonProperty("x-request-id")]
-        public string RequestId { get; set; }
+        public string RequestId { get; init; }
     }
 }
