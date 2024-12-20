@@ -45,13 +45,11 @@ namespace AdobeServicesClientTest
             Assert.NotNull(token.AccessToken);
         }
         
-     
         [Test]
         public async Task Test_DocumentMerge_Success()
         {
             var connector = _setup.Connector;
-            
-           
+            connector.SetAdobeURLRegion(RegionOptions.UnitedStates);
             string filename = "fax.docx";
             if (!File.Exists(filename))
                 Assert.Fail("File does not exist");
@@ -61,13 +59,9 @@ namespace AdobeServicesClientTest
             string json = JsonConvert.SerializeObject(contactData);
             JObject jObject = JObject.Parse(json);
             var mergeDocumentResponse = await connector.MergeDocumentAsync(fileStream, jObject);
-            // Assert.DoesNotThrowAsync(() => connector.UploadFileAsync(filename, fileStream, asset.uploadUri));
-
-                       
-            //Request the merge
             
             Assert.IsNotNull(mergeDocumentResponse);
-            //Assert.IsTrue(mergeDocumentResponse.Length >  0);
+           
             using (var pdfStream = new FileStream("StreamedFile.pdf", FileMode.Create, FileAccess.Write))
             {
               
@@ -76,6 +70,23 @@ namespace AdobeServicesClientTest
             fileStream.Dispose();
             mergeDocumentResponse.Dispose();
 
+        }
+        [Test]
+        public async Task Test_DocumentMerge_Fail()
+        {
+            var connector = _setup.Connector;
+            string filename = "fax.docx";
+            if (!File.Exists(filename))
+                Assert.Fail("File does not exist");
+            FileStream fileStream = File.OpenRead(filename);
+            fileStream.Seek(0, SeekOrigin.Begin);
+            TestContactData contactData = new TestContactData("William", "Mendoza", "Will@somedomain.com", "123456789");
+            string json = JsonConvert.SerializeObject(contactData);
+            JObject jObject = JObject.Parse(json);
+            //Wrong URL
+            connector.SetAdobeURLRegion("https://pdf-services-ue1.adobe.com");
+            Assert.ThrowsAsync<HttpRequestException>(() => connector.MergeDocumentAsync(fileStream, jObject));
+            fileStream.Dispose();
         }
     }
 }

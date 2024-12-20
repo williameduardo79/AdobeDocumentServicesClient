@@ -28,7 +28,7 @@ namespace AdobeServicesClientTest
         {
             var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Don't make it optional
-            .AddUserSecrets<Program>() // This tells the application to load User Secrets.
+            .AddUserSecrets<AdobeClientConnectorIntegrationTests>() // This tells the application to load User Secrets.
             .Build();
 
             var services = new ServiceCollection();
