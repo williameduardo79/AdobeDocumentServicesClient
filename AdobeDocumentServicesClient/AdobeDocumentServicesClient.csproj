@@ -6,7 +6,13 @@
     <Nullable>enable</Nullable>
 			<PackageLicenseExpression>MIT</PackageLicenseExpression>
 			<PackageReadmeFile>README.md</PackageReadmeFile>
-			<Version>1.0.3</Version>
+			<Version>1.0.4</Version>
+			<Description>
+					This package provides utilities for handling Adobe's Merge functionality.
+					This feature makes it easy to generate a PDF document by filling a word document with Json tags and creating a PDF.
+					See the documentation. Adobe's functionality can be reviewed here: https://developer.adobe.com/document-services/docs/overview/document-generation-api/
+			</Description>
+			<PackageTags>PDF;Adobe Document Generation;Easy PDF</PackageTags>
   </PropertyGroup>
 	
   <ItemGroup>
