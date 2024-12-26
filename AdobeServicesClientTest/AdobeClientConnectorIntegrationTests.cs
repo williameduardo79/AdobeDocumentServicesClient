@@ -40,9 +40,10 @@ namespace AdobeServicesClientTest
             var token = await _setup.Connector.GetTokenAsync();
 
             // Assert
-            Assert.AreEqual(token.ResponseCode, HttpStatusCode.OK);
-            Assert.NotNull(token);
-            Assert.NotNull(token.AccessToken);
+            Assert.That(token.ResponseCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(token, Is.Not.Null);
+            Assert.That(token.AccessToken, Is.Not.Null);
+          
         }
         
         [Test]
@@ -59,9 +60,9 @@ namespace AdobeServicesClientTest
             string json = JsonConvert.SerializeObject(contactData);
             JObject jObject = JObject.Parse(json);
             var mergeDocumentResponse = await connector.MergeDocumentAsync(fileStream, jObject);
-            
-            Assert.IsNotNull(mergeDocumentResponse);
-           
+
+            Assert.That(mergeDocumentResponse, Is.Not.Null);
+
             using (var pdfStream = new FileStream("StreamedFile.pdf", FileMode.Create, FileAccess.Write))
             {
               
