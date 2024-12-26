@@ -20,17 +20,17 @@ namespace AdobeDocumentServicesClient.Services
     public class AdobeClientConnector : IAdobeClientConnector
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger _logger;
+        private readonly ILogger<AdobeClientConnector> _logger;
         private AdobeCredentials _adobeCredentials;
         private string _adobeUrl;
-        public AdobeClientConnector(IHttpClientFactory httpClient, ILogger logger, IOptions<AdobeCredentials> options)
+        public AdobeClientConnector(IHttpClientFactory httpClient, ILogger<AdobeClientConnector> logger, IOptions<AdobeCredentials> options)
       : this(httpClient, logger, options.Value.ClientId, options.Value.ClientSecret, options.Value.Region, null)
         {
         }
 
         public AdobeClientConnector(
             IHttpClientFactory httpClient,
-            ILogger logger,
+            ILogger<AdobeClientConnector> logger,
             string clientId,
             string clientSecret,
             RegionOptions region)
@@ -40,7 +40,7 @@ namespace AdobeDocumentServicesClient.Services
 
         public AdobeClientConnector(
             IHttpClientFactory httpClient,
-            ILogger logger,
+            ILogger<AdobeClientConnector> logger,
             string clientId,
             string clientSecret,
             RegionOptions region,

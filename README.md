@@ -51,7 +51,7 @@ To use the AdobeClientConnector service, ensure the following configurations are
 
 The library integrates with .NET dependency injection. Register it in your Startup.cs or Program.cs:
 
-`services.Configure<AdobeCredentials>(configuration.GetSection("AdobeCredentials"));     
+`services.Configure<AdobeCredentials>(configuration.GetSection(AdobeCredentials.Name));     
 services.AddHttpClient();    
 services.AddTransient<IAdobeClientConnector, AdobeClientConnector>();    `
 

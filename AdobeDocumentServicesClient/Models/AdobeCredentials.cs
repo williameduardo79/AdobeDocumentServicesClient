@@ -9,6 +9,7 @@ namespace AdobeDocumentServicesClient.Models
 {
     public class AdobeCredentials
     {
+        public const string Name = "AdobeCredentials";
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
         public RegionOptions Region {  get; set; }
