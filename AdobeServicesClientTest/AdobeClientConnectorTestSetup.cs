@@ -21,7 +21,7 @@ namespace AdobeServicesClientTest
         private ILogger<AdobeClientConnector> _logger;
         private IOptions<AdobeCredentials> _options;
         private AdobeClientConnector _connector;
-      
+        private string _temporayFiles = "TemporaryFiles";
 
         [OneTimeSetUp]
         public void Setup()
@@ -49,10 +49,21 @@ namespace AdobeServicesClientTest
 
             _connector = new AdobeClientConnector(_httpClientFactory, _logger, _options);
             _connector.SetAdobeURLRegion(RegionOptions.UnitedStates);
+            
+            //Recreate directory
+            if (Directory.Exists(_temporayFiles))
+            {
+                Directory.Delete(_temporayFiles, true);
+            }
+            if (!Directory.Exists(_temporayFiles))
+            {
+                Directory.CreateDirectory(_temporayFiles);
+            }
 
         }
 
         public AdobeClientConnector Connector => _connector;
+        public string TemporaryFiles => _temporayFiles;
       
     }
 

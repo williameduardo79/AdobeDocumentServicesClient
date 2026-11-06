@@ -21,16 +21,19 @@ using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
 
 namespace AdobeServicesClientTest
 {
+    
     [TestFixture]
     public class AdobeClientConnectorIntegrationTests
     {
         private AdobeClientConnectorTestSetup _setup;
+        
 
         [OneTimeSetUp]
         public void FixtureSetup()
         {
             _setup = new AdobeClientConnectorTestSetup();
             _setup.Setup();
+            
         }
 
         [Test]
@@ -49,9 +52,11 @@ namespace AdobeServicesClientTest
         [Test]
         public async Task Test_DocumentMerge_Success()
         {
+            
             var connector = _setup.Connector;
+            var generatedFilesLocation = _setup.TemporaryFiles;
             connector.SetAdobeURLRegion(RegionOptions.UnitedStates);
-            string filename = "fax.docx";
+            string filename =  "fax.docx";
             if (!File.Exists(filename))
                 Assert.Fail("File does not exist");
             FileStream fileStream = File.OpenRead(filename);
@@ -63,7 +68,7 @@ namespace AdobeServicesClientTest
 
             Assert.That(mergeDocumentResponse, Is.Not.Null);
 
-            using (var pdfStream = new FileStream("StreamedFile.pdf", FileMode.Create, FileAccess.Write))
+            using (var pdfStream = new FileStream(Path.Combine(generatedFilesLocation,"StreamedFile.pdf"), FileMode.Create, FileAccess.Write))
             {
               
                 await mergeDocumentResponse.CopyToAsync(pdfStream);
@@ -88,6 +93,33 @@ namespace AdobeServicesClientTest
             connector.SetAdobeURLRegion("https://pdf-services-ue1.adobe.com");
             Assert.ThrowsAsync<HttpRequestException>(() => connector.MergeDocumentAsync(fileStream, jObject));
             fileStream.Dispose();
+        }
+        [Test]
+        public async Task Test_KryptoReceipt_Success()
+        {
+            var connector = _setup.Connector;
+            var generatedFilesLocation = _setup.TemporaryFiles;
+            connector.SetAdobeURLRegion(RegionOptions.UnitedStates);
+            string filename = "KryptoitSaleReceipt.docx";
+            if (!File.Exists(filename))
+                Assert.Fail("File does not exist");
+            FileStream fileStream = File.OpenRead(filename);
+            fileStream.Seek(0, SeekOrigin.Begin);
+          
+            string json = File.ReadAllText("SalesReceipt.json");
+            JObject jObject = JObject.Parse(json);
+            var mergeDocumentResponse = await connector.MergeDocumentAsync(fileStream, jObject);
+
+            Assert.That(mergeDocumentResponse, Is.Not.Null);
+
+            using (var pdfStream = new FileStream(Path.Combine(generatedFilesLocation,"kryptoreceipt.pdf"), FileMode.Create, FileAccess.Write))
+            {
+
+                await mergeDocumentResponse.CopyToAsync(pdfStream);
+            }
+            fileStream.Dispose();
+            mergeDocumentResponse.Dispose();
+
         }
     }
 }

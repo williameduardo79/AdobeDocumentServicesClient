@@ -1,0 +1,53 @@
+{
+  "PaymentModel": {
+    "FirstName": "WIlliam",
+    "LastName": "Mendoza",
+    "Email": "williameduardo@hotmail.com",
+    "Phone": null,
+    "AgreeTerms": false,
+    "TermsLink": null,
+    "StreetAddress": null,
+    "City": null,
+    "State": null,
+    "PostalCode": null,
+    "Country": null,
+    "PaymentToken": null,
+    "CreditCard": "1111",
+    "Expiration": null,
+    "ExpirationMonth": 0,
+    "ExpirationYear": 0,
+    "CVV": "",
+    "Amount": 0.0,
+    "OneTimeAmount": 300.0,
+    "IpAddress": null,
+    "Subscription": null,
+    "PlanName": null,
+    "PlanId": null,
+    "Description": null,
+    "SubscriptionStartDate": "0001-01-01",
+    "ReceiptDocumentFileName": "KryptoitSaleReceipt.docx",
+    "TransactionDate": "2024-12-25",
+    "ObjectCreatedStamp": "2024-12-26T03:24:40.3059576Z",
+    "CompanyName": null
+  },
+  "PaymentResponse": [
+    {
+      "Response": 0,
+      "ResponseText": "Transaction was approved",
+      "TransactionRefId": null,
+      "AuthCode": "123456",
+      "SubscriptionId": null,
+      "TransactionId": "10254136623",
+      "AvsResponse": "",
+      "AvsResponseText": "",
+      "CvvResponse": "N",
+      "OrderId": "",
+      "Type": 0,
+      "ResponseCode": 100,
+      "ResponseCodeText": "Transaction was approved",
+      "CvvResponseText": "N",
+      "MainType": 0
+    }
+  ],
+  "WordTemplate": "KryptoItSaleReceipt.docx"
+}
